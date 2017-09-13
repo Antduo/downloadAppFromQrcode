@@ -1,99 +1,82 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title> +1社区APP下载</title>
-
+<html lang="zh-cn"><head>
+    <meta charset="UTF-8">
+    <title>+1社区APP下载</title>
+    <meta name="viewport" content="minimal-ui,width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <style>
         *{
             padding: 0px;
             margin: 0px;
         }
 
-        #content img:first-child{
+        body {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        img {
+            /*height: 100%;*/
+            width: 100%;
+        }
+
+        button {
             position: absolute;
-            top: 0;
-            right: 0;
-            display: none;
-            width:80%;
-
+            z-index: 9998;
+            border: none;
+            width: 40%;
+            height: 38px;
+            bottom: 5%;
+            left: 30%;
+            border:1px solid solid;
+            background: rgb(189,21,34);
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
         }
-
-        #content img:nth-child(2){
-            width:100%;
-            vertical-align: middle;
-        }
-
     </style>
-
-
     <script type="text/javascript">
-        
-        window.onload=function (){
-            
-            /*
-             * 智能机浏览器版本信息:
-             *
-             */
-            var browser = {
-                versions: function() {
-                    var u = navigator.userAgent, app = navigator.appVersion;
-                    return {//移动终端浏览器版本信息
-                        trident: u.indexOf('Trident') > -1, //IE内核
-                        presto: u.indexOf('Presto') > -1, //opera内核
-                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-                        mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
-                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-                                       android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-                                       iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
-                                       iPad: u.indexOf('iPad') > -1, //是否iPad
-                                       webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
-                                       };
-                                       }(),
-                                       language: (navigator.browserLanguage || navigator.language).toLowerCase()
-                                       }
-                                       if (browser.versions.ios || browser.versions.iPhone || browser.versions.iPad) {
-                                       window.location="https://itunes.apple.com/us/app/id1236718183?ls=1&mt=8";
-                                       /*appstore iOS 下载地址*/
-                                       }
-                                       else if (browser.versions.android) {
+        var BUTTON_TEXT = 'iphone';
+        var isiOS = false,INTERFVAL=2000,DONW_URL="http://a.app.qq.com/o/simple.jsp?pkgname=lilun.com.pensionlife";
+        if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+            //alert(navigator.userAgent);
+            isiOS = true;
+        } else if (/(Android)/i.test(navigator.userAgent)) {
+            //alert(navigator.userAgent);
+            isiOS = false;
+        } else {
+            isiOS = false;
+        };
 
-                                          // 是微信内部webView
-                                           if (is_weixn()) {
-                                             alert("请点击右上角按钮, 使用浏览器打开");
-                                           }
-                                       
-                                           window.location="https://www.liluntech.com/pension1.apk";/*安卓 下载地址*/
-                                       
-                                       }
+        function ChangeBtnText(text) {
+            BUTTON_TEXT = text+' 下载';
+            document.getElementById('download_btn').innerHTML = BUTTON_TEXT;
+        }
 
-
+        function init() {
+            ChangeBtnText(isiOS ? "iphone" : "android");
         }
 
 
-        //判断是不是微信
-        function isWeixin(){
-            var WxObj=window.navigator.userAgent.toLowerCase();
-            if(WxObj.match(/microMessenger/i)=='micromessenger'){
-                return true;
-            }else{
-                return false;
-            }
+        function downClick() {
+            window.location.href=DONW_URL;
         }
 
-
+        setTimeout(function(){
+            window.location.href=DONW_URL;
+        },INTERFVAL);
     </script>
 
-    
 </head>
-<body>
-
-<div id="content">
-    <img src="image/guide.png">
-    <img src="image/社区.png">
-</div>
 
 
+<body onload="init()">
+
+<button onclick="downClick()" id="download_btn">app 下载</button>
+<img src="./image/pension.jpg">
 </body>
 </html>
